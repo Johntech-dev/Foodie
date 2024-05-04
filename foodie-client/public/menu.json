@@ -387,7 +387,7 @@
         "_id": "642c155b2c4774f05c36ee9c",
         "name": "Breton Fish Stew",
         "recipe": "Chargrilled chicken with avocado, baby gem lettuce, baby spinach, shallots, French beans, walnuts, croutons and a mustard dressing",
-        "image": "/image/home/recipes/img1.png",
+        "image": "/image/home/recipes/img1.png" ,
         "category": "pizza",
         "price": 12.9
     },
@@ -395,7 +395,7 @@
         "_id": "642c155b2c4774f05c36ee9d",
         "name": "Goats Cheese Pizza",
         "recipe": "Roasted duck breast (served pink) with gratin potato and a griottine cherry sauce",
-        "image": "/image/home/recipes/img1.png",
+        "image": "/image/home/recipes/img2.png",
         "category": "pizza",
         "price": 14.5
     },

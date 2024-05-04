@@ -12,7 +12,7 @@ const Card = ({ item }) => {
   return (
     <div to={`/menu/${item._id}`} className="card shadow-xl relative mr-5 md:my-5">
       <div
-        className={`rating gap-1 absolute right-2 top-2 p-4 rounded-badge heartStar bg-green ${
+        className={`rating gap-1 absolute right-2 top-2 p-4 rounded-md heartStar bg-green ${
           isHeartFilled ? "text-rose-500" : "text-white"
         }`}
         onClick={handleHeartClick}
