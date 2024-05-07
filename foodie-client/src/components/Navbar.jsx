@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from './Modal'
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
 
+  const {user} = useContext(AuthContext)
+  console.log(user)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +19,8 @@ const Navbar = () => {
         setSticky(false);
       }
     };
+
+
 
     window.addEventListener("scroll", handleScroll);
 

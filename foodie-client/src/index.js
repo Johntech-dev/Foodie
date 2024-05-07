@@ -4,8 +4,11 @@ import './index.css';
 import router from './router/Router';
 import App from './App';
 import { RouterProvider } from 'react-router-dom';
+import AuthProvider from './contexts/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <RouterProvider router={router}></RouterProvider>
+  <AuthProvider>
+    <RouterProvider router={router}></RouterProvider>
+  </AuthProvider>,
 );
