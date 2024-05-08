@@ -1,20 +1,51 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Modal from './Modal'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { AuthContext } from '../contexts/AuthProvider';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 const Signup = () => {
+
+  const [errorMessage, setErrorMessage] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const from = location.state?.from?.pathname || "/";
+
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    const email = data.email
+    const password = data.password
+
+    createUser(email, password).then((result) => {
+      const user = result.user;
+      navigate(from, {replace: true})
+      setSuccessMessage("Your account has been successfully created")
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      setErrorMessage("We are unable to create an account for you at the moment please check your internet connection")
+      // ..
+    });
+  }
+
+
+  const {createUser} = useContext(AuthContext)
   return (
     <div className='max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20 rounded-sm'>
     <div className="modal-action flex flex-col justify-center  mt-0">
-
+      <ToastContainer />
     <form  onSubmit={handleSubmit(onSubmit)} className="card-body" method='dialog'>
         <h3 className='font-bold text-lg'>Create Account</h3>
         {/* email */}
@@ -45,7 +76,13 @@ const Signup = () => {
           </label>
           
          {/*  error */}
-
+              
+         {
+                errorMessage ? <p className='text-red text-xs italic'>{errorMessage}</p> : ""
+              }
+               {
+                successMessage ? <p className='text-green text-xs italic'>{successMessage}</p> : ""
+              }
 
           {/* Login button */}
         </div>

@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form"
 import { AuthContext } from '../contexts/AuthProvider';
@@ -16,7 +16,18 @@ const Modal = () => {
         formState: { errors },
       } = useForm()
     
-    const {signUpWithGmail} = useContext(AuthContext);
+    const {signUpWithGmail, Login} = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
+
+   const location = useLocation();
+   const navigate =useNavigate();
+
+
+   const from  = location.state?.from?.pathname || "/";
+
+    // This Function handle Google login
+
 
 
     const handleGoogleLogin = () => {
@@ -71,7 +82,24 @@ const Modal = () => {
     //   })
     // }
 
-      const onSubmit = (data) => console.log(data)
+      const onSubmit = (data) => {
+        const email = data.email
+        const password = data.password
+
+        // console.log(email, password)
+
+        Login(email, password).then((result) => {
+          // Signed in 
+          const user = result.user;
+          setSuccessMessage("Your info is correct")
+          document.getElementById('my_modal_5').close()
+          navigate(from, {replace: true})
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+           setErrorMessage("Invalid Email or password")
+        });
+      }
 
   return (
     <div>
@@ -110,7 +138,13 @@ const Modal = () => {
           
          {/*  error */}
 
-
+        {
+          errorMessage ? <p className='text-red text-xs italic'>{errorMessage}</p> : ""
+        }
+               
+        {
+          successMessage ? <p className='text-green text-xs italic'>{successMessage}</p> : ""
+        }
           {/* Login button */}
         </div>
         <div className="form-control mt-6">
