@@ -77,12 +77,12 @@ const Signup = () => {
           
          {/*  error */}
               
-         {
+         {/* {
                 errorMessage ? <p className='text-red text-xs italic'>{errorMessage}</p> : ""
               }
-               {
+              {
                 successMessage ? <p className='text-green text-xs italic'>{successMessage}</p> : ""
-              }
+              } */}
 
           {/* Login button */}
         </div>

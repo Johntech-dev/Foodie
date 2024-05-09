@@ -60,9 +60,10 @@ const AuthProvider = ({children}) => {
             }
           });
           return () => {
-            return unsubscribe
+            return unsubscribe();
           }
     }, [])
+    
     
     
 
@@ -84,6 +85,7 @@ const AuthProvider = ({children}) => {
      Login,
      Logout,
     updateUserProfile,
+    loading
     }
 
 

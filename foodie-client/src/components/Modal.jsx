@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form"
@@ -28,15 +28,15 @@ const Modal = () => {
 
     // This Function handle Google login
 
-
-
     const handleGoogleLogin = () => {
       signUpWithGmail().then((result) => {
         const user = result.user;
-   
+        navigate(from, {replace: true})
         toast.success("Logged In successful", {
           position: "top-center"
         })
+        document.getElementById('my_modal_5').close()
+        navigate(from, {replace: true})
       }).catch((error) => toast.error("Check your internet connection", {
         position: "top-center"
       }))
