@@ -1,97 +1,71 @@
-import React, { createContext, useState, useEffect } from 'react'
-import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import app from '../firbase/firebase.config'
+import React, { createContext, useEffect, useState } from 'react'
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import app from "../firbase/firebase.config"
 
 
-
-export  const AuthContext = createContext();
+export const AuthContext = createContext();
 const auth = getAuth(app);
-const gogleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
-const githubProvider = new GithubAuthProvider();
+const googleProvider = new GoogleAuthProvider();
+
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
-    const [loading,setLoading] = useState(true)
- 
-     // Create an Account
+    const [loading, setLoading] = useState(true);
 
-     const createUser = (email, password) => {
+    // create an account
+    const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
-     }
-    // Sign Up with Gmail
-     
+    }
+
+    // signup with gmail
     const signUpWithGmail = () => {
-        return signInWithPopup(auth, gogleProvider)
+      setLoading(true);
+      return  signInWithPopup(auth, googleProvider)
     }
 
-    // Login using email and password
-    
-    const Login = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
+    // login using email & password
+    const login = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
     }
 
-    // const Logout
+    // logout 
+    const logOut = () =>{
+      return signOut(auth);
+  }
 
-    const Logout = () => {
-        signOut(auth)
-    }
-
-    // Update Profile
-
-     const updateUserProfile = (name, photoURL) => {
-        return updateProfile (auth.currentUser, {
+    // update profile
+    const updateUserProfile = (name, photoURL) => {
+      return  updateProfile(auth.currentUser, {
             displayName: name, photoURL: photoURL
           })
-     }
-
-
-     // check currently signed in user
-     
-    useEffect(() => {
-       const unsubscribe = onAuthStateChanged (auth, (currentUser) => {
-            if (currentUser) {
-              setUser(currentUser)
-              setLoading(false)
-              // ...
-            } else {
-              // User is signed out
-              // ...
-            }
-          });
-          return () => {
-            return unsubscribe();
-          }
-    }, [])
-    
-    
-    
-
-    // Sign Up with facebook 
-
-    const signUpWithFacebook = () => {
-        return signInWithPopup(auth, facebookProvider)
     }
 
-    const signUpWithGithub = () => {
-      return signInWithPopup(auth, githubProvider)
-    }
+    // check signed-in user
+    useEffect( () =>{
+      const unsubscribe = onAuthStateChanged(auth, currentUser =>{
+          // console.log(currentUser);
+          setUser(currentUser);
+          setLoading(false);
+      });
+
+      return () =>{
+          return unsubscribe();
+      }
+  }, [])
+
     const authInfo = {
-     user,
-     createUser,
-     signUpWithGmail,
-     signUpWithFacebook,
-     signUpWithGithub,
-     Login,
-     Logout,
-    updateUserProfile,
-    loading
+        user,
+        createUser,
+        signUpWithGmail,
+        login,
+        logOut,
+        updateUserProfile,
+        loading
     }
-
-
   return (
     <AuthContext.Provider value={authInfo}>
-      {children}
+        {children}
     </AuthContext.Provider>
   )
 }

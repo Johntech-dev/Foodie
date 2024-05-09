@@ -6,6 +6,7 @@ import Signup from "../components/Signup"
 import PrivateRouter from "../privaterouter/PrivateRouter";
 
 
+
 const router = createBrowserRouter ([
    {
     path: "/",

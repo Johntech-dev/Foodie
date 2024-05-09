@@ -1,13 +1,14 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Modal from './Modal'
+import Modal from "./Modal";
 import { AuthContext } from "../contexts/AuthProvider";
-import Profile from './Profile'
+import Profile from "./Profile";
+
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
 
-  const {user} = useContext(AuthContext)
+  const {user} = useContext(AuthContext);
   console.log(user)
 
   useEffect(() => {
@@ -20,8 +21,6 @@ const Navbar = () => {
       }
     };
 
-
-
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -32,18 +31,14 @@ const Navbar = () => {
   const navItems = (
     <>
       <li>
-        <Link to={'/'}>
         <a className="text-green">Home</a>
-        </Link>
       </li>
       <li tabIndex={0}>
         <details>
           <summary>Menu</summary>
           <ul className="p-2">
             <li>
-              <Link to={'/menu'}>
-              <a>All</a>
-              </Link>
+              <a href="/menu">All</a>
             </li>
             <li>
               <a>Salad</a>
@@ -111,11 +106,9 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <Link to={'/'}>
-          <a>
-             <img src="logo.png" />
+          <a href="/">
+            <img src="logo.png" alt="" />
           </a>
-          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
@@ -161,15 +154,16 @@ const Navbar = () => {
           </label>
 
           {/* login btn */}
-          {
-            user? <><Profile user={user} /></> : <button
-            className="btn flex items-center gap-2 rounded-full px-6 bg-green text-white"
-            onClick={()=>document.getElementById('my_modal_5').showModal()}
-            >
-            <FaRegUser /> Login
-          </button>
-          }
-        <Modal />
+         {
+          user? <Profile user={user}/> :  <button
+          onClick={() => document.getElementById("my_modal_5").showModal()}
+          className="btn flex items-center gap-2 rounded-full px-6 bg-green text-white"
+        >
+          <FaRegUser /> Login
+        </button>
+         }
+          
+          <Modal/>
         </div>
       </div>
     </header>

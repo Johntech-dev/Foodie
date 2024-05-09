@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -41,6 +42,7 @@ const SpecialDishes = () => {
       .then((res) => res.json())
       .then((data) => {
         const specials = data.filter((item) => item.category === "popular");
+        // console.log(specials)
         setRecipes(specials);
       });
   }, []);

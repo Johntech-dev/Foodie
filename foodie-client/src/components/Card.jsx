@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Card = ({ item }) => {
+const Cards = ({ item }) => {
   // console.log(item)
   const [isHeartFilled, setIsHeartFilled] = useState(false);
 
@@ -12,7 +12,7 @@ const Card = ({ item }) => {
   return (
     <div to={`/menu/${item._id}`} className="card shadow-xl relative mr-5 md:my-5">
       <div
-        className={`rating gap-1 absolute right-2 top-2 p-4 rounded-md heartStar bg-green ${
+        className={`rating gap-1 absolute right-2 top-2 p-4 heartStar bg-green ${
           isHeartFilled ? "text-rose-500" : "text-white"
         }`}
         onClick={handleHeartClick}
@@ -38,4 +38,4 @@ const Card = ({ item }) => {
   );
 };
 
-export default Card;
+export default Cards;
