@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
@@ -6,6 +6,10 @@ import Modal from "./Modal";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Signup = () => {
+
+
+  const  [errorMessage , setErrorMessage] = useState("")
+
     const {
         register,
         handleSubmit,
@@ -21,18 +25,24 @@ const Signup = () => {
       const onSubmit = (data) => {
         const email = data.email;
         const password = data.password;
+
         createUser(email, password).then((result) => {
-          // Signed up 
+          // Signed up  
           const user = result.user;
           alert("Account creation successfully done!")
           document.getElementById("my_modal_5").close()
           navigate(from, {replace: true})
+
+          if (password.length < 8) {
+            setErrorMessage("password must be more than 8 characters")
+          } 
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
+          setErrorMessage("Check Internet connection")
         })
       }
   return (
@@ -68,6 +78,9 @@ const Signup = () => {
             </div>
 
             {/* error */}
+            {
+              errorMessage ? <p className="text-red text-xs italic">{errorMessage}</p> : ""
+            }
 
             {/* login btn */}
             <div className="form-control mt-6">

@@ -74,8 +74,10 @@ const Modal = () => {
                 {...register("password")}
               />
               <label className="label mt-1">
-                <a href="#" className="label-text-alt link link-hover">
+                <a className="label-text-alt link link-hover">
+                  <Link to="/forgotpassword" className="underline">
                   Forgot password?
+                  </Link>
                 </a>
               </label>
             </div>
