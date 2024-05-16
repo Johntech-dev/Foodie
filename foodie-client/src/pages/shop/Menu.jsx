@@ -14,11 +14,11 @@ const Menu = () => {
     // Fetch data from the backend
     const fetchData = async () => {
       try {
-        const response = await fetch("/menu.json");
+        const response = await fetch();
         const data = await response.json();
         setMenu(data);
         setFilteredItems(data); // Initially, display all items
-      } catch (error) {
+       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };

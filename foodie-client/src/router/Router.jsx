@@ -6,6 +6,7 @@ import Signup from "../components/Signup"
 import PrivateRouter from "../privaterouter/PrivateRouter";
 import ForgotPassword from "../components/ForgotPassword";
 import UpdateProfile from "../pages/dashboard/UpdateProfile";
+import Cart from "../pages/cart/Cart";
 
 
 
@@ -24,7 +25,11 @@ const router = createBrowserRouter ([
         }, 
         {
             path:"/update-profile",
-            element: <UpdateProfile />
+            element: <PrivateRouter><UpdateProfile /></PrivateRouter>
+        },
+        {
+            path:"/Cart",
+            element: <PrivateRouter><Cart /></PrivateRouter>
         }
     ],
    },
