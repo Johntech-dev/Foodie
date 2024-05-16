@@ -45,7 +45,9 @@ const Profile = ({ user }) => {
               </Link>
             </li>
             <li>
+              <Link to={"/Cart"}>
               <a>Order</a>
+              </Link>
             </li>
             <li>
               <a>Setting</a>
