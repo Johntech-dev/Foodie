@@ -32,7 +32,9 @@ const Navbar = () => {
   const navItems = (
     <>
       <li>
+     <Link to={"/"}>
         <a className="text-green">Home</a>
+      </Link>
       </li>
       <li tabIndex={0}>
         <details>
